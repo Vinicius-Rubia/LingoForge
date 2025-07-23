@@ -1,5 +1,7 @@
+using LingoForge.Domain.Services;
 using LingoForge.Extensions;
 using LingoForge.Middlewares;
+using LingoForge.Token;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,8 @@ builder.Services
     .AddUseCors()
     .AddCustomAuthorization()
     .AddAuthentication(builder.Configuration);
+
+builder.Services.AddScoped<IUserProvider, CurrentUserProvider>();
 
 builder.Services.AddHttpContextAccessor();
 
