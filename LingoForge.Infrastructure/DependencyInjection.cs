@@ -1,7 +1,9 @@
 ﻿using LingoForge.Domain.Interfaces.Repositories;
+using LingoForge.Domain.Security.Cryptography;
 using LingoForge.Domain.Security.Tokens;
 using LingoForge.Infrastructure.DataAccess;
 using LingoForge.Infrastructure.DataAccess.Repositories;
+using LingoForge.Infrastructure.Security.Cryptography;
 using LingoForge.Infrastructure.Security.Tokens;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -16,6 +18,8 @@ public static class DependencyInjection
         AddDBContext(services, configuration);
         AddRepositories(services);
         AddToken(services, configuration);
+
+        services.AddScoped<IPasswordEncryption, PasswordEncryption>();
     }
 
     public static void AddToken(IServiceCollection services, IConfiguration configuration)
