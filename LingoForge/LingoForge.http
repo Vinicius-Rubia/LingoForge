@@ -1,0 +1,6 @@
+@LingoForge_HostAddress = http://localhost:5195
+
+GET {{LingoForge_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
