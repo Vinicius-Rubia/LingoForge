@@ -1,20 +1,24 @@
+using LingoForge.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services
+    .AddCustomServices(builder.Configuration)
+    .AddSwaggerDocumentation()
+    .AddUseCors()
+    .AddCustomAuthorization()
+    .AddAuthentication(builder.Configuration);
+
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseCors("AllowAll");
 
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
+app.UseCustomSwagger(app.Environment)
+    .UseHttpsRedirection()
+    .UseAuthentication()
+    .UseAuthorization();
 
 app.MapControllers();
 
