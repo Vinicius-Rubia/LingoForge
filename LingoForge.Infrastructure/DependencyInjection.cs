@@ -38,5 +38,6 @@ public static class DependencyInjection
     private static void AddRepositories(IServiceCollection services)
     {
         services.AddScoped<IUnityOfWork, UnityOfWork>();
+        services.AddScoped<IUserRepository, UserRepository>();
     }
 }

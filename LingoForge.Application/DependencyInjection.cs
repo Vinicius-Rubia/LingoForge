@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using LingoForge.Application.UseCases.Auth;
+using LingoForge.Domain.Interfaces.UseCases.Auth;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace LingoForge.Application;
 
@@ -11,6 +13,6 @@ public static class DependencyInjection
 
     private static void AddUseCases(IServiceCollection services)
     {
-
+        services.AddScoped<ICreateAccountUseCase, CreateAccountUseCase>();
     }
 }
