@@ -16,10 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\LingoForge.Application\LingoForge.Application.csproj" />
     <ProjectReference Include="..\LingoForge.Infrastructure\LingoForge.Infrastructure.csproj" />
   </ItemGroup>
