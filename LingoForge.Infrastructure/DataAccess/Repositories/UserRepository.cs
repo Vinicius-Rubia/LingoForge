@@ -1,4 +1,5 @@
 ﻿using LingoForge.Domain.Entities;
+using LingoForge.Domain.Enums;
 using LingoForge.Domain.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -41,5 +42,12 @@ internal class UserRepository(LingoForgeDbContext dbContext) : IUserRepository
     public async Task<User?> GetByIdAsync(Guid id)
     {
         return await _dbContext.Users.FindAsync(id);
+    }
+
+    public async Task<List<User>> GetStudentsByIdsAsync(List<Guid> studentIds)
+    {
+        return await _dbContext.Users
+           .Where(u => studentIds.Contains(u.Id) && u.Role == EUserRole.STUDENT)
+           .ToListAsync();
     }
 }

@@ -10,4 +10,5 @@ public interface IUserRepository
     Task<User?> GetByEmailOrUsernameAsync(string identifier);
     Task<User?> GetByIdAsync(Guid id);
     void Delete(User user);
+    Task<List<User>> GetStudentsByIdsAsync(List<Guid> studentIds);
 }
