@@ -8,6 +8,17 @@ internal class TurmaRepository(LingoForgeDbContext dbContext) : ITurmaRepository
 {
     private readonly LingoForgeDbContext _dbContext = dbContext;
 
+    public async Task AddAsync(Turma turma)
+    {
+        await _dbContext.Classes.AddAsync(turma);
+    }
+
+    public async Task<bool> ExistsByNameAndProfessorIdAsync(string name, Guid teacherId)
+    {
+        return await _dbContext.Classes
+            .AnyAsync(t => t.Name.ToLower() == name.ToLower() && t.TeacherId == teacherId);
+    }
+
     public async Task<IEnumerable<Turma>> GetClassesByStudentIdAsync(Guid studentId)
     {
         return await _dbContext.Classes

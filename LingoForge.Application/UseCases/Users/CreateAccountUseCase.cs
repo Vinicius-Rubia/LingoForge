@@ -6,20 +6,26 @@ using LingoForge.Domain.Exceptions;
 using LingoForge.Domain.Interfaces.Repositories;
 using LingoForge.Domain.Interfaces.UseCases.Users;
 using LingoForge.Domain.Security.Cryptography;
+using LingoForge.Domain.Services;
 
 namespace LingoForge.Application.UseCases.Users;
 
 public class CreateAccountUseCase(
     IUserRepository userRepository,
+    IUserProvider userProvider,
     IPasswordEncryption passwordEncryption,
     IUnityOfWork unityOfWork) : ICreateAccountUseCase
 {
     private readonly IUserRepository _userRepository = userRepository;
     private readonly IUnityOfWork _unityOfWork = unityOfWork;
     private readonly IPasswordEncryption _passwordEncryption = passwordEncryption;
+    private readonly IUserProvider _userProvider = userProvider;
 
     public async Task<ResponseCreatedUserDTO> Execute(RequestCreateAccountDTO request)
     {
+        _ = _userProvider.GetUserIdentifier()
+          ?? throw new UnauthorizedException();
+
         await Validate(request);
 
         request.Password = _passwordEncryption.Encrypt(request.Password);

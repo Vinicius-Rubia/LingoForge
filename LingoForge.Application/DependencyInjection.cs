@@ -1,6 +1,8 @@
 ﻿using LingoForge.Application.UseCases.Auth;
+using LingoForge.Application.UseCases.Turmas;
 using LingoForge.Application.UseCases.Users;
 using LingoForge.Domain.Interfaces.UseCases.Auth;
+using LingoForge.Domain.Interfaces.UseCases.Turmas;
 using LingoForge.Domain.Interfaces.UseCases.Users;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -18,5 +20,6 @@ public static class DependencyInjection
         services.AddScoped<ICreateAccountUseCase, CreateAccountUseCase>();
         services.AddScoped<ILoginUseCase, LoginUseCase>();
         services.AddScoped<IDeleteStudentAccountUseCase, DeleteStudentAccountUseCase>();
+        services.AddScoped<ICreateClassUseCase, CreateClassUseCase>();
     }
 }
