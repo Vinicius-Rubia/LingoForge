@@ -1,7 +1,7 @@
 ﻿using LingoForge.Domain.DTOs.Requests;
 using LingoForge.Domain.DTOs.Responses;
 
-namespace LingoForge.Domain.Interfaces.UseCases.Auth;
+namespace LingoForge.Domain.Interfaces.UseCases.Users;
 
 public interface ICreateAccountUseCase
 {

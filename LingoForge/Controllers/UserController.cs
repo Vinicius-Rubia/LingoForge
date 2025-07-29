@@ -1,6 +1,6 @@
 ﻿using LingoForge.Domain.DTOs.Requests;
 using LingoForge.Domain.DTOs.Responses;
-using LingoForge.Domain.Interfaces.UseCases.Auth;
+using LingoForge.Domain.Interfaces.UseCases.Users;
 using LingoForge.Domain.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,5 +22,16 @@ public class UserController : ControllerBase
     {
         var response = await useCase.Execute(request);
         return Created(string.Empty, response);
+    }
+
+    [HttpDelete("{studentId:guid}")]
+    [Authorize(Policy = AuthorizationPolicies.MustBeTeacher)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> DeleteStudent([FromServices] IDeleteStudentAccountUseCase useCase, [FromRoute] Guid studentId)
+    {
+        await useCase.Execute(studentId);
+        return NoContent();
     }
 }

@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using LingoForge.Domain.DTOs.Requests;
 
-namespace LingoForge.Application.UseCases.Auth;
+namespace LingoForge.Application.UseCases.Users;
 
 public class CreateAccountValidator : AbstractValidator<RequestCreateAccountDTO>
 {

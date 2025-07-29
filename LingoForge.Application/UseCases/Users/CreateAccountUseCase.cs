@@ -1,12 +1,13 @@
-﻿using LingoForge.Domain.DTOs.Requests;
+﻿using LingoForge.Application.UseCases.Auth;
+using LingoForge.Domain.DTOs.Requests;
 using LingoForge.Domain.DTOs.Responses;
 using LingoForge.Domain.Entities;
 using LingoForge.Domain.Exceptions;
 using LingoForge.Domain.Interfaces.Repositories;
-using LingoForge.Domain.Interfaces.UseCases.Auth;
+using LingoForge.Domain.Interfaces.UseCases.Users;
 using LingoForge.Domain.Security.Cryptography;
 
-namespace LingoForge.Application.UseCases.Auth;
+namespace LingoForge.Application.UseCases.Users;
 
 public class CreateAccountUseCase(
     IUserRepository userRepository,
