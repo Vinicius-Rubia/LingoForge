@@ -18,7 +18,7 @@ public class UserController : ControllerBase
     [ProducesResponseType(typeof(ResponseCreatedUserDTO), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(BaseResponseErrorDTO), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(BaseResponseErrorDTO), StatusCodes.Status403Forbidden)]
-    public async Task<IActionResult> PromoteToTeacher([FromServices] ICreateAccountUseCase useCase, [FromBody] RequestCreateAccountDTO request)
+    public async Task<IActionResult> CreateAccountForStudent([FromServices] ICreateAccountUseCase useCase, [FromBody] RequestCreateAccountDTO request)
     {
         var response = await useCase.Execute(request);
         return Created(string.Empty, response);
