@@ -26,4 +26,12 @@ public class ClassesController : ControllerBase
         await useCase.Execute(classId, request);
         return NoContent();
     }
+
+    [HttpDelete("{classId:guid}/students/{studentId:guid}")]
+    [Authorize(Policy = AuthorizationPolicies.MustBeTeacher)]
+    public async Task<IActionResult> RemoveStudentFromClass([FromServices] IRemoveStudentFromClassUseCase useCase, Guid classId, Guid studentId)
+    {
+        await useCase.Execute(classId, studentId);
+        return NoContent();
+    }
 }

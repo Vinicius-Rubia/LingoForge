@@ -24,5 +24,6 @@ public static class DependencyInjection
         services.AddScoped<IDeleteStudentAccountUseCase, DeleteStudentAccountUseCase>();
         services.AddScoped<ICreateClassUseCase, CreateClassUseCase>();
         services.AddScoped<IAddStudentsToClassUseCase, AddStudentsToClassUseCase>();
+        services.AddScoped<IRemoveStudentFromClassUseCase, RemoveStudentFromClassUseCase>();
     }
 }

@@ -41,12 +41,11 @@ public class Turma : BaseEntity
 
     public void RemoveStudent(Guid studentId)
     {
-        var enrollment = _enrollments.FirstOrDefault(e => e.StudentId == studentId);
-        if (enrollment is not null)
-        {
-            _enrollments.Remove(enrollment);
-            UpdatedAt = DateTime.UtcNow;
-        }
+        var enrollment = _enrollments.FirstOrDefault(e => e.StudentId == studentId)
+            ?? throw new DomainException("Matrícula do aluno não encontrada");
+
+        _enrollments.Remove(enrollment);
+        UpdatedAt = DateTime.UtcNow;
     }
 
     private void Validate()
