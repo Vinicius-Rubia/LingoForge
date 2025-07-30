@@ -6,8 +6,10 @@ public class AnswerItem : BaseEntity
 {
     public Guid AnswerId { get; private set; }
     public Guid QuestionId { get; private set; } // FK para a Questão original
-    public string AnswerText { get; private set; }
+    public string? AnswerText { get; private set; }
+    public Guid? ChosenAlternativeId { get; private set; }
 
+    // Construtor para resposta dissertativa
     private AnswerItem(Guid answerId, Guid questionId, string answerText)
     {
         AnswerId = answerId;
@@ -17,9 +19,22 @@ public class AnswerItem : BaseEntity
         Validate();
     }
 
+    // Construtor para resposta de múltipla escolha
+    public AnswerItem(Guid answerId, Guid questionId, Guid chosenAlternativeId)
+    {
+        AnswerId = answerId;
+        QuestionId = questionId;
+        ChosenAlternativeId = chosenAlternativeId;
+    }
+
     public static AnswerItem Create(Guid answerId, Guid questionId, string answerText)
     {
         return new AnswerItem(answerId, questionId, answerText);
+    }
+
+    public static AnswerItem CreateMultiplyAnswerItems(Guid answerId, Guid questionId, Guid chosenAlternativeId)
+    {
+        return new AnswerItem(answerId, questionId, chosenAlternativeId);
     }
 
     private void Validate()

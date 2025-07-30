@@ -1,4 +1,6 @@
-﻿namespace LingoForge.Domain.Entities;
+﻿using LingoForge.Domain.Exceptions;
+
+namespace LingoForge.Domain.Entities;
 
 public class Answer : BaseEntity
 {
@@ -34,5 +36,27 @@ public class Answer : BaseEntity
     public static Answer CreateWithQuestionAndAnswers(Guid activityId, Guid studentId, List<AnswerItem> items)
     {
         return new Answer(activityId, studentId, items);
+    }
+
+    // Método para o aluno registrar sua escolha em uma questão de múltipla escolha
+    public void AddChoice(Question question, Guid chosenAlternativeId)
+    {
+        // Regra de negócio: a alternativa escolhida deve pertencer à questão.
+        if (!question.Alternatives.Any(a => a.Id == chosenAlternativeId))
+            throw new DomainException("A alternativa escolhida não pertence a esta questão.");
+
+        // Evita respostas duplicadas para a mesma questão
+        if (_items.Any(i => i.QuestionId == question.Id)) return;
+
+        _items.Add(AnswerItem.CreateMultiplyAnswerItems(Id, question.Id, chosenAlternativeId));
+        UpdatedAt = DateTime.UtcNow;
+    }
+
+    // Método para o aluno registrar sua resposta dissertativa (já existente, mas agora mais explícito)
+    public void AddWrittenAnswer(Question question, string answerText)
+    {
+        if (_items.Any(i => i.QuestionId == question.Id)) return;
+        _items.Add(AnswerItem.Create(Id, question.Id, answerText));
+        UpdatedAt = DateTime.UtcNow;
     }
 }
