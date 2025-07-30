@@ -9,4 +9,5 @@ public interface ITurmaRepository
     Task<bool> ExistsByNameAndProfessorIdAsync(string name, Guid teacherId);
     Task<Turma?> GetByIdWithEnrollmentsAsync(Guid classId);
     Task<Turma?> GetByIdAsync(Guid id);
+    Task<bool> IsStudentEnrolledInClassAsync(Guid studentId, Guid classId);
 }

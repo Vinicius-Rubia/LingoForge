@@ -5,4 +5,5 @@ namespace LingoForge.Domain.Interfaces.Repositories;
 public interface IActivityRepository
 {
     Task AddAsync(Activity activity);
+    Task<Activity?> GetByIdWithDetailsAsync(Guid activityId);
 }

@@ -38,4 +38,10 @@ internal class TurmaRepository(LingoForgeDbContext dbContext) : ITurmaRepository
             .Where(t => t.Enrollments.Any(e => e.StudentId == studentId))
             .ToListAsync();
     }
+
+    public async Task<bool> IsStudentEnrolledInClassAsync(Guid studentId, Guid classId)
+    {
+        return await _dbContext.ClassEnrollments
+            .AnyAsync(ta => ta.StudentId == studentId && ta.TurmaId == classId);
+    }
 }

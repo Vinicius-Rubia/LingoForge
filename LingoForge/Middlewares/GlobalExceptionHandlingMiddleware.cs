@@ -29,7 +29,7 @@ public class GlobalExceptionHandlingMiddleware(RequestDelegate next)
         {
             LingoForgeException ex => ((HttpStatusCode)ex.StatusCode, new BaseResponseErrorDTO(ex.GetErrors())),
 
-            _ => (HttpStatusCode.InternalServerError, new BaseResponseErrorDTO("Ocorreu um erro inesperado no servidor."))
+            _ => (HttpStatusCode.InternalServerError, new BaseResponseErrorDTO($"Ocorreu um erro inesperado no servidor. {exception}"))
         };
 
         context.Response.StatusCode = (int)statusCode;

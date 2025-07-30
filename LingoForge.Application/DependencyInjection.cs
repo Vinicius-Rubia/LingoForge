@@ -1,9 +1,11 @@
 ﻿using LingoForge.Application.UseCases.Activities;
+using LingoForge.Application.UseCases.Answers;
 using LingoForge.Application.UseCases.Auth;
 using LingoForge.Application.UseCases.Students;
 using LingoForge.Application.UseCases.Turmas;
 using LingoForge.Application.UseCases.Users;
 using LingoForge.Domain.Interfaces.UseCases.Activities;
+using LingoForge.Domain.Interfaces.UseCases.Answers;
 using LingoForge.Domain.Interfaces.UseCases.Auth;
 using LingoForge.Domain.Interfaces.UseCases.Students;
 using LingoForge.Domain.Interfaces.UseCases.Turmas;
@@ -28,5 +30,6 @@ public static class DependencyInjection
         services.AddScoped<IAddStudentsToClassUseCase, AddStudentsToClassUseCase>();
         services.AddScoped<IRemoveStudentFromClassUseCase, RemoveStudentFromClassUseCase>();
         services.AddScoped<ICreateActivityUseCase, CreateActivityUseCase>();
+        services.AddScoped<ISubmitActivityUseCase, SubmitActivityUseCase>();
     }
 }

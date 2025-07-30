@@ -41,5 +41,6 @@ public static class DependencyInjection
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<ITurmaRepository, TurmaRepository>();
         services.AddScoped<IActivityRepository, ActivityRepository>();
+        services.AddScoped<IAnswerRepository, AnswerRepository>();
     }
 }
