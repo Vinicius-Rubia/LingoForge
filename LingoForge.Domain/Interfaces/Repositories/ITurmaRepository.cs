@@ -8,4 +8,5 @@ public interface ITurmaRepository
     Task AddAsync(Turma turma);
     Task<bool> ExistsByNameAndProfessorIdAsync(string name, Guid teacherId);
     Task<Turma?> GetByIdWithEnrollmentsAsync(Guid classId);
+    Task<Turma?> GetByIdAsync(Guid id);
 }

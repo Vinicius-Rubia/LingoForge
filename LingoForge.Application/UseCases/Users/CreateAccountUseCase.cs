@@ -1,5 +1,4 @@
-﻿using LingoForge.Application.UseCases.Auth;
-using LingoForge.Domain.DTOs.Requests;
+﻿using LingoForge.Domain.DTOs.Requests;
 using LingoForge.Domain.DTOs.Responses;
 using LingoForge.Domain.Entities;
 using LingoForge.Domain.Exceptions;

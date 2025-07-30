@@ -18,5 +18,14 @@ internal class QuestionMapping : BaseMapping<Question>
         builder.Property(q => q.Order)
                .IsRequired()
                .HasColumnType("INT");
+
+        // Adiciona o relacionamento 1-N com Alternativa
+        builder.HasMany(q => q.Alternatives)
+               .WithOne()
+               .HasForeignKey(a => a.QuestaoId)
+               .OnDelete(DeleteBehavior.Cascade);
+
+        builder.Metadata.FindNavigation(nameof(Question.Alternatives))!
+            .SetPropertyAccessMode(PropertyAccessMode.Field);
     }
 }

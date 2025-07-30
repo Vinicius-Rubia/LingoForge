@@ -29,14 +29,23 @@ public class Activity : BaseEntity
         return new Activity(title, type, turmaId, instructions);
     }
 
-    public void AddQuestion(string statement)
+    public void AddQuestion(string statement, List<(string Text, bool IsCorrect)> alternatives)
     {
         if (Type != EActivityType.QUESTION_AND_ANSWER)
             throw new DomainException("Questões só podem ser adicionadas a atividades do tipo 'Perguntas e Respostas'.");
 
-        var order = _questions.Count + 1;
-        _questions.Add(Question.Create(Id, statement, order));
+        if (alternatives.Count(a => a.IsCorrect) != 1)
+            throw new InvalidOperationException("Cada questão deve ter exatamente uma alternativa correta.");
 
+        var order = _questions.Count + 1;
+        var question = Question.Create(Id, statement, order);
+
+        foreach (var (text, isCorrect) in alternatives)
+        {
+            question.AddAlternative(text, isCorrect);
+        }
+
+        _questions.Add(question);
         UpdatedAt = DateTime.UtcNow;
     }
 
@@ -48,10 +57,10 @@ public class Activity : BaseEntity
         int titleLength = Title.Trim().Length;
 
         if (titleLength < 6)
-            throw new DomainException("Nome deve ter no mínimo 6 caracteres.");
+            throw new DomainException("Título deve ter no mínimo 6 caracteres.");
 
         if (titleLength > 20)
-            throw new DomainException("Nome deve ter no máximo 20 caracteres.");
+            throw new DomainException("Título deve ter no máximo 20 caracteres.");
 
         if (!Enum.IsDefined(typeof(EActivityType), Type))
             throw new DomainException("Tipo da atividade não é válido!");

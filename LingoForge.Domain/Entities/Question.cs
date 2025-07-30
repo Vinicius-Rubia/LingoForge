@@ -8,6 +8,9 @@ public class Question : BaseEntity
     public string Statement { get; private set; } // O enunciado da questão
     public int Order { get; private set; }
 
+    private readonly List<Alternative> _alternatives = [];
+    public IReadOnlyCollection<Alternative> Alternatives => _alternatives.AsReadOnly();
+
     private Question(Guid activityId, string statement, int order)
     {
         ActivityId = activityId;
@@ -20,6 +23,15 @@ public class Question : BaseEntity
     public static Question Create(Guid activityId, string statement, int order)
     {
         return new Question(activityId, statement, order);
+    }
+
+    public void AddAlternative(string text, bool isCorrect)
+    {
+        if (isCorrect && _alternatives.Any(a => a.IsCorrect))
+            throw new DomainException("Uma questão só pode ter uma alternativa correta.");
+
+        _alternatives.Add(Alternative.Create(Id, text, isCorrect));
+        UpdatedAt = DateTime.UtcNow;
     }
 
     private void Validate()

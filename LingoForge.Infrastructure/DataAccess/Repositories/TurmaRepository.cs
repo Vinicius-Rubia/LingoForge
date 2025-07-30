@@ -19,6 +19,12 @@ internal class TurmaRepository(LingoForgeDbContext dbContext) : ITurmaRepository
             .AnyAsync(t => t.Name.ToLower() == name.ToLower() && t.TeacherId == teacherId);
     }
 
+    public async Task<Turma?> GetByIdAsync(Guid id)
+    {
+        return await _dbContext.Classes
+            .FirstOrDefaultAsync(t => t.Id == id);
+    }
+
     public async Task<Turma?> GetByIdWithEnrollmentsAsync(Guid classId)
     {
         return await _dbContext.Classes
